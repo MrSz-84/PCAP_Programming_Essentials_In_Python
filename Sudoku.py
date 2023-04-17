@@ -3,6 +3,7 @@
 from sys import stdin
 
 # quick check if git control and staging works from ubuntu
+# another check from vsc from ubuntu machine
 
 # print('Check if given numbers are Sudoku or not.\n'
 #       'Data has to be 9 rows, 9 digits per row\n'
