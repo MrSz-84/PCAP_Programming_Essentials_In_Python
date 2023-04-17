@@ -2,6 +2,8 @@
 # Reads if given numbers are sudoku or not
 from sys import stdin
 
+# quick check if git control and staging works from ubuntu
+
 # print('Check if given numbers are Sudoku or not.\n'
 #       'Data has to be 9 rows, 9 digits per row\n'
 #       'NO SPACES ARE ALLOWED!')
