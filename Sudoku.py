@@ -1,6 +1,5 @@
 # %%
-# Read if given numbers are sudoku or not
-# sudoku = open('C:\\Users\\pixel\\Python_codding\\PyCharm\\Files\\Sudoku1.txt', 'r')
+# Reads if given numbers are sudoku or not
 from sys import stdin
 
 # print('Check if given numbers are Sudoku or not.\n'
