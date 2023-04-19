@@ -65,6 +65,6 @@ cols_ok = column_rearrange(sudoku)
 squares_ok = squares_rearrange(sudoku)
 
 if rows_ok and cols_ok and squares_ok:
-    print('Given data are valid. Congrats you have a Sudoku!')
+    print('Given data is valid. Congrats you have a Sudoku!')
 else:
     print('I\'m so sorry. Your data don\'t make a Sudoku :(')
