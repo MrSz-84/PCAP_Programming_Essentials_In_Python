@@ -22,7 +22,7 @@ def column_rearrange(sudoku):  # nested list for each column of sudoku as feed f
     return checkup(checkup_lst)
 
 
-def squares_rearrange(sudoku):
+def squares_rearrange(sudoku):  # nested list for each 3x3 square  as feed for checkup
     checkup_lst.clear()
     for row_counter in range(3):
         for col_counter in range(3):
