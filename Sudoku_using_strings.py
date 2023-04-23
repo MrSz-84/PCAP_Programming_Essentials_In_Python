@@ -3,6 +3,7 @@
 def checkup(numbers, lst):
     return numbers == sorted(list(lst))
 
+
 # board creation
 sudoku = []
 for x in range(9):
@@ -34,7 +35,7 @@ if ok:
         if not ok:
             break
 
-#squares check
+# squares check
 if ok:
     for num in range(0, 9, 3):
         for coll in range(0, 9, 3):
