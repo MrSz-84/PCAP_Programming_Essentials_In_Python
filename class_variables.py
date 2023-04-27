@@ -82,20 +82,20 @@
 #     print(exemplary_object.b)
 
 # %% does a variable of a class is available to invoke? hasattr
-
-class ExemplaryClass:
-    a = 1
-
-    def __init__(self):
-        self.b = 2
-
-
-exemplary_object = ExemplaryClass()
-
-print(hasattr(exemplary_object, 'b'))
-print(hasattr(exemplary_object, 'a'))
-print(hasattr(ExemplaryClass, 'b'))
-print(hasattr(ExemplaryClass, 'a'))
+#
+# class ExemplaryClass:
+#     a = 1
+#
+#     def __init__(self):
+#         self.b = 2
+#
+#
+# exemplary_object = ExemplaryClass()
+#
+# print(hasattr(exemplary_object, 'b'))
+# print(hasattr(exemplary_object, 'a'))
+# print(hasattr(ExemplaryClass, 'b'))
+# print(hasattr(ExemplaryClass, 'a'))
 
 # %%
 #
@@ -110,3 +110,42 @@ print(hasattr(ExemplaryClass, 'a'))
 # %%
 
 # hasattr(wersja_2, 'constrictor')
+
+# %% super() and class name for subclasses invocation
+
+class Pet:
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+
+    def show(self):
+        print(f'I am {self.name} and I am {self.age} years old')
+
+    def speak(self):
+        print('I don\'t know what I say')
+
+
+class Cat(Pet):
+    def __init__(self, name, age, color):
+        super().__init__(name, age)
+        # Pet.__init__(self, name, age)
+        self.color = color
+
+    def speak(self):
+        print('Meow')
+
+    def show(self):
+        print(f'I am {self.name} and I am {self.age} years old and I am {self.color}')
+
+
+class Dog(Pet):
+    def speak(self):
+        print('Bark')
+
+
+p = Pet('Tim', 19)
+p.speak()
+c = Cat('Bill', 34, 'Black')
+c.show()
+d = Dog('Jill', 25)
+d.speak()
