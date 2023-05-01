@@ -166,7 +166,7 @@
 # print(obj.variableSup)
 
 # %% 6.5.1.11 OOP -> Inheritance - how Python language finds
-# properties and methods: continuation
+# properties and methods: continuation.
 class Lvl1:
     variable_1 = 100
 
