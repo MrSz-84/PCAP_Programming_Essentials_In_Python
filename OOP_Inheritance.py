@@ -207,7 +207,7 @@
 
 # %% 6.5.1.12 OOP -> Inheritance - how Python language finds
 # # properties and methods: continuation - multiple super classes
-# class SuperA:
+#  SuperA:
 #     var_A = 10
 
 #     def fun_A(self):
@@ -370,13 +370,13 @@
 
 
 # class Vehicles:
-#     def __init__(self, controler) -> None:
-#         self.controler = controler
+#     def __init__(self, controller) -> None:
+#         self.controller = controller
 
 #     def turn(self, left):
-#         self.controler.change_direction(left, True)
+#         self.controller.change_direction(left, True)
 #         time.sleep(0.25)
-#         self.controler.change_direction(left, False)
+#         self.controller.change_direction(left, False)
 
 
 # wheeled = Vehicles(WheeledVehicles())
@@ -519,7 +519,7 @@ class GuardDog(Dog):
 
 
 rocky = SheepDog('Collie')
-luna = GuardDog('Dobermann')
+luna = GuardDog('Doberman')
 erwin = LowlandDog('Valee Sheepdog')
 
 print(rocky)
