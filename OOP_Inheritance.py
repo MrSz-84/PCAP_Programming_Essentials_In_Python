@@ -13,11 +13,11 @@
 #     def __init__(self, name, galactic) -> None:
 #         self.name = name
 #         self. galactic = galactic
-
+#
 #     def __str__(self) -> str:
 #         return self.name + ' in ' + self.galactic
-
-
+#
+#
 # sun = Star('Sun', 'Milky Way')
 # print(sun)
 
