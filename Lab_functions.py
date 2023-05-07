@@ -262,3 +262,19 @@ print(day_of_year(2007, 6, 15))
 print(day_of_year(2015, 2, 3))
 print(day_of_year(2128, 8, 15))
 print(day_of_year(1992, 7, 22))
+
+
+def is_prime(num):
+    if i == 2:
+        return True
+    elif num != 2:
+        for j in range(2, num):
+            if num % j == 0:
+                return False
+        return True
+
+
+for i in range(1, 20):
+    if is_prime(i + 1):
+        print(i + 1, end=" ")
+print()
