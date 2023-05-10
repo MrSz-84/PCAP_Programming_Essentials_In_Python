@@ -20,7 +20,7 @@ def enter_move(board):
     ok = False
     while not ok:
         player_input = input('Enter your move: ')
-        ok = not player_input < '1' and player_input < '9' and len(player_input) == 1 \
+        ok = not player_input < '1' and player_input <= '9' and len(player_input) == 1 \
             and player_input.isdigit()
         if not ok:
             print('Your choice isn\'t valid. Pick a number in range 1-9.')
@@ -82,9 +82,26 @@ def draw_move(board):
 
 
 board = [[(i + 1 + (j * 3)) for i in range(3)] for j in range(3)]
-
 board[1][1] = 'x'
-print(victory_for(board, 'x'))
 display_board(board)
-enter_move(board)
-draw_move(board)
+victor = None
+while True:
+    if make_list_of_free_fields(board).count('taken') >= 9:
+        break
+    enter_move(board)
+    victor = victory_for(board, 'ϴ')
+    if victor is not None:
+        break
+    if make_list_of_free_fields(board).count('taken') >= 9:
+        break
+    draw_move(board)
+    victor = victory_for(board, 'x')
+    if victor is not None:
+        break
+
+if victor == 'ϴ':
+    print('You won human')
+elif victor == 'x':
+    print('Lord of the bytes has won!')
+else:
+    print('It\'s a draw')
