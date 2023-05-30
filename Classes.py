@@ -70,43 +70,148 @@
 # print(object_stack2.pop())
 
 # %% a subclass for all stacks sum evaluation support
+#
+# class Stack:
+#     def __init__(self):
+#         self.__stack_list = []
+#
+#     def push(self, val):
+#         self.__stack_list.append(val)
+#
+#     def pop(self):
+#         val = self.__stack_list[-1]
+#         del self.__stack_list[-1]
+#         return val
+#
+#
+# class StackAdd(Stack):
+#     def __init__(self):
+#         Stack.__init__(self)
+#         self.__sum = 0
+#
+#     def push(self, val):
+#         self.__sum += val
+#         Stack.push(self, val)
+#
+#     def pop(self):
+#         val = Stack.pop(self)
+#         self.__sum -= val
+#         return val
+#
+#     def get_sum(self):
+#         return self.__sum
+#
+#
+# stack_object = StackAdd()
+#
+# for i in range(5, 0, -1):
+#     stack_object.push(i)
+# print(stack_object.get_sum())
+#
+# for i in range(5):
+#     print(stack_object.pop())
+#
 
-class Stack:
+# %% LAB counting stack
+#
+# class Stack:
+#     def __init__(self):
+#         self.__stk = []
+#
+#     def push(self, val):
+#         self.__stk.append(val)
+#
+#     def pop(self):
+#         val = self.__stk[-1]
+#         del self.__stk[-1]
+#         return val
+#
+#
+# class CountingStack(Stack):
+#     def __init__(self):
+#         super().__init__()
+#         self.__pop_sum = 0
+#
+#     def get_counter(self):
+#         return self.__pop_sum
+#
+#     def pop(self):
+#         self.__pop_sum += 1
+#         return super().pop()
+#
+#
+# stk = CountingStack()
+# for i in range(100):
+#     stk.push(i)
+#     stk.pop()
+# print(stk.get_counter())
+
+# %% Queue aka FIFO
+#
+# class QueueError(Exception):
+#     pass
+#
+#
+# class Queue:
+#     def __init__(self):
+#         self.__stack = []
+#
+#     def put(self, element):
+#         self.__stack.insert(0, element)
+#
+#     def get(self):
+#         if len(self.__stack) < 1:
+#             raise QueueError
+#         else:
+#             val = self.__stack[-1]
+#             del self.__stack[-1]
+#             return val
+#
+#
+# que = Queue()
+# que.put(1)
+# que.put("dog")
+# que.put(False)
+# try:
+#     for i in range(4):
+#         print(que.get())
+# except:
+#     print("Queue error")
+
+
+# %% Queue aka FIFO part 2
+
+class QueueError(IndexError):
+    pass
+
+
+class Queue:
     def __init__(self):
-        self.__stack_list = []
+        self.stack = []
 
-    def push(self, val):
-        self.__stack_list.append(val)
+    def put(self, element):
+        self.stack.insert(0, element)
 
-    def pop(self):
-        val = self.__stack_list[-1]
-        del self.__stack_list[-1]
-        return val
-
-
-class StackAdd(Stack):
-    def __init__(self):
-        Stack.__init__(self)
-        self.__sum = 0
-
-    def push(self, val):
-        self.__sum += val
-        Stack.push(self, val)
-
-    def pop(self):
-        val = Stack.pop(self)
-        self.__sum -= val
-        return val
-
-    def get_sum(self):
-        return self.__sum
+    def get(self):
+        if len(self.stack) < 1:
+            raise QueueError
+        else:
+            val = self.stack[-1]
+            del self.stack[-1]
+            return val
 
 
-stack_object = StackAdd()
+class SuperQueue(Queue):
+    def isempty(self):
+        return len(self.stack) == 0
 
-for i in range(5, 0, -1):
-    stack_object.push(i)
-print(stack_object.get_sum())
 
-for i in range(5):
-    print(stack_object.pop())
+que = SuperQueue()
+que.put(1)
+que.put("dog")
+que.put(False)
+for i in range(4):
+    if not que.isempty():
+        print(que.get())
+    else:
+        print("Queue empty")
