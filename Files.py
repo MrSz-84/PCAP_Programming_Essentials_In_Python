@@ -120,27 +120,202 @@ The complete list is much longer (it also includes some error codes not related 
 
 """
 
+# %% 4.3.1 Processing text files
+
+
+# import errno
+#
+# try:
+#     s = open("c:/users/user/Desktop/file.txt", "rt")
+#     s.close()
+# except Exception as exc:
+#     if exc.errno == errno.ENOENT:
+#         print("The file doesn't exist.")
+#     elif exc.errno == errno.EMFILE:
+#         print("You've opened too many files.")
+#     else:
+#         print("The error number is:", exc.errno)
+#
+#
+# from os import strerror
+#
+# try:
+#     s = open("c:/users/user/Desktop/file.txt", "rt")
+#     s.close()
+# except Exception as exc:
+#     print("The file could not be opened:", strerror(exc.errno))
+
+
+# %%
+# import os
+#
+# try:
+#     counter = 0
+#     stream = open("text.txt", "rt")
+#     char = stream.read(1)
+#     while char != "":
+#         print(char, end="")
+#         counter += 1
+#         char = stream.read(1)
+#     stream.close()
+#     print("\n\nCharacters in file:", counter)
+# except IOError as e:
+#     print("I/O error occurred: ", os.strerror(e.errno))
+
+
+# %%
+# import os
+#
+# try:
+#     counter = 0
+#     stream = open("text.txt", "rt")
+#     content = stream.read()
+#     for char in content:
+#         print(char, end="")
+#         counter += 1
+#     stream.close()
+#     print("\n\nCharacters in file:", counter)
+# except IOError as e:
+#     print("I/O error occurred: ", os.strerror(e.errno))
+
+
+# %%
+# import os
+#
+# try:
+#     counter = 0
+#     stream = open("C:\\Users\\pixel\\Downloads\\sudoku.csv\\sudoku.csv", "rt")
+#     char = stream.read(1)
+#     while char != "":
+#         print(char, end="")
+#         counter += 1
+#         char = stream.read(1)
+#     stream.close()
+#     print("\n\nCharacters in file:", counter)
+# except IOError as e:
+#     print("I/O error occurred: ", os.strerror(e.errno))
+
+
+# %%
+# import os
+#
+# try:
+#     counter = 0
+#     stream = open("C:\\Users\\pixel\\Downloads\\sudoku.csv\\sudoku.csv", "rt")
+#     content = stream.read()
+#     for char in content:
+#         counter += 1
+#     stream.close()
+#     print("\n\nCharacters in file:", counter)
+# except IOError as e:
+#     print("I/O error occurred: ", os.strerror(e.errno))
+
+# %% 4.3.2 readline()
+# import os
+#
+# try:
+#     character_counter = line_counter = 0
+#     stream = open("text.txt", "rt")
+#     line = stream.readline()
+#     while line != "":
+#         line_counter += 1
+#         for char in line:
+#             print(char, end="")
+#             character_counter += 1
+#         line = stream.readline()
+#     stream.close()
+#     print("\n\nCharacters in file:", character_counter)
+#     print("Lines in file:", line_counter)
+# except IOError as e:
+#     print("I/O error occurred:", os.strerror(e.errno))
+
+# %%
+# import os
+#
+# try:
+#     character_counter = line_counter = 0
+#     stream = open("C:\\Users\\pixel\\Downloads\\sudoku.csv\\sudoku.csv", "rt")
+#     line = stream.readline()
+#     while line != "":
+#         line_counter += 1
+#         for char in line:
+#             character_counter += 1
+#         line = stream.readline()
+#     stream.close()
+#     print("\n\nCharacters in file:", character_counter)
+#     print("Lines in file:", line_counter)
+# except IOError as e:
+#     print("I/O error occurred:", os.strerror(e.errno))
+
+
+# %% 3.3.3 readlines()
+# stream = open("text.txt")
+# print(stream.readlines(20))
+# print(stream.readlines(20))
+# print(stream.readlines(20))
+# print(stream.readlines(20))
+# stream.close()
+
+# %%
+# stream = open("C:\\Users\\pixel\\Downloads\\sudoku.csv\\sudoku.csv")
+# print(stream.readlines(20))
+# print(stream.readlines(20))
+# print(stream.readlines(20))
+# print(stream.readlines(20))
+# stream.close()
+
+# %%
+# import os
+#
+# try:
+#     ccnt = lcnt = 0
+#     s = open("text.txt", "rt")
+#     lines = s.readlines(20)
+#     while len(lines) != 0:
+#         for line in lines:
+#             lcnt += 1
+#             for ch in line:
+#                 print(ch, end="")
+#                 ccnt += 1
+#         lines = s.readlines(10)
+#     s.close()
+#     print("\n\nCharacters in file:", ccnt)
+#     print("Lines in file:     ", lcnt)
+# except IOError as e:
+#     print("I/O error occurred:", os.strerror(e.errno))
+
 # %%
 
+# import os
+#
+# try:
+#     ccnt = lcnt = 0
+#     s = open("C:\\Users\\pixel\\Downloads\\sudoku.csv\\sudoku.csv", "rt")
+#     lines = s.readlines(20)
+#     while len(lines) != 0:
+#         for line in lines:
+#             lcnt += 1
+#             for ch in line:
+#                 ccnt += 1
+#         lines = s.readlines(10)
+#     s.close()
+#     print("\n\nCharacters in file:", ccnt)
+#     print("Lines in file:     ", lcnt)
+# except IOError as e:
+#     print("I/O error occurred:", os.strerror(e.errno))
 
-import errno
+# %%
+
+import os
 
 try:
-    s = open("c:/users/user/Desktop/file.txt", "rt")
-    s.close()
-except Exception as exc:
-    if exc.errno == errno.ENOENT:
-        print("The file doesn't exist.")
-    elif exc.errno == errno.EMFILE:
-        print("You've opened too many files.")
-    else:
-        print("The error number is:", exc.errno)
-
-
-from os import strerror
-
-try:
-    s = open("c:/users/user/Desktop/file.txt", "rt")
-    s.close()
-except Exception as exc:
-    print("The file could not be opened:", strerror(exc.errno))
+    ccnt = lcnt = 0
+    for line in open("text.txt", "rt"):
+        lcnt += 1
+        for ch in line:
+            print(ch, end="")
+            ccnt += 1
+    print("\n\nCharacters in file:", ccnt)
+    print("Lines in file:     ", lcnt)
+except IOError as e:
+    print("I/O error occurred: ", os.strerror(e.errno))
