@@ -305,17 +305,110 @@ The complete list is much longer (it also includes some error codes not related 
 #     print("I/O error occurred:", os.strerror(e.errno))
 
 # %%
+#
+# import os
+#
+# try:
+#     ccnt = lcnt = 0
+#     for line in open("text.txt", "rt"):
+#         lcnt += 1
+#         for ch in line:
+#             print(ch, end="")
+#             ccnt += 1
+#     print("\n\nCharacters in file:", ccnt)
+#     print("Lines in file:     ", lcnt)
+# except IOError as e:
+#     print("I/O error occurred: ", os.strerror(e.errno))
 
+# %% 4.3.4 Dealing with text files: write()
+
+# import os
+#
+# try:
+#     file = open("newtext.txt", "wt")  # a new file is created.
+#     for i in range(10):
+#         s = "line #" + str(i + 1) + "\n"
+#         for char in s:
+#             file.write(char)
+#     file.close()
+# except IOError as e:
+#     print("I/O error occurred: ", os.strerror(e.errno))
+#
+# # %% printing created files contents.
+# try:
+#     file = open("newtext.txt", "rt")
+#     line = file.readline()
+#     while line != "":
+#         for char in line:
+#             print(char, end="")
+#         line = file.readline()
+#     file.close()
+# except IOError as e:
+#     print("I/O error occurred: ", os.strerror(e.errno))
+
+
+# %% writing whole lines
+
+# import os
+#
+# try:
+#     file = open("newtext.txt", "wt")
+#     for i in range(10):
+#         file.write("line #$#" + str(i + 1) + "\n")
+#     file.close()
+# except IOError as e:
+#     print("I/O error occurred: ", os.strerror(e.errno))
+#
+#
+# try:
+#     file = open("newtext.txt", "rt")
+#     for line in file:
+#         print(line, end="")
+#     file.close()
+# except IOError as e:
+#     print("I/O error occurred: ", os.strerror(e.errno))
+
+# %% writing whole lines
+# import os
+#
+#
+# try:
+#     line_cnt = 0
+#     source = open("C:\\Users\\pixel\\Downloads\\sudoku.csv\\demo_list.csv", "rt")
+#     destination = open("C:\\Users\\pixel\\Downloads\\sudoku.csv\\demo_list.txt", "wt")
+#     for line in source:
+#         line_cnt += 1
+#         make_copy = line
+#         destination.write(line)
+#     print("Lines copied: ", line_cnt)
+# except IOError as e:
+#     print("I/O error occurred: ", os.strerror(e.errno))
+
+
+# %% 4.3.5 What is a bytearray
 import os
 
+
+data = bytearray(10)
+
+for i in range(len(data)):
+    data[i] = 10 + i
+
 try:
-    ccnt = lcnt = 0
-    for line in open("text.txt", "rt"):
-        lcnt += 1
-        for ch in line:
-            print(ch, end="")
-            ccnt += 1
-    print("\n\nCharacters in file:", ccnt)
-    print("Lines in file:     ", lcnt)
+    bf = open("file.bin", "wb")
+    bf.write(data)
+    bf.close()
 except IOError as e:
-    print("I/O error occurred: ", os.strerror(e.errno))
+    print("I/O error occurred:", os.strerror(e.errno))
+
+
+# %%
+
+data = bytearray(10)
+
+for i in range(len(data)):
+    data[i] = 10 - i
+
+for b in data:
+    print(hex(b))
+
