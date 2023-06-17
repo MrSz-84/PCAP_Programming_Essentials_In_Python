@@ -386,29 +386,198 @@ The complete list is much longer (it also includes some error codes not related 
 
 
 # %% 4.3.5 What is a bytearray
-import os
-
-
-data = bytearray(10)
-
-for i in range(len(data)):
-    data[i] = 10 + i
-
-try:
-    bf = open("file.bin", "wb")
-    bf.write(data)
-    bf.close()
-except IOError as e:
-    print("I/O error occurred:", os.strerror(e.errno))
+# import os
+#
+#
+# data = bytearray(10)
+#
+# for i in range(len(data)):
+#     data[i] = 10 + i
+#
+# try:
+#     bf = open("file.bin", "wb")
+#     bf.write(data)
+#     bf.close()
+# except IOError as e:
+#     print("I/O error occurred:", os.strerror(e.errno))
 
 
 # %%
 
-data = bytearray(10)
+# data = bytearray(10)
+#
+# for i in range(len(data)):
+#     data[i] = 10 - i
+#
+# for b in data:
+#     print(hex(b))
 
-for i in range(len(data)):
-    data[i] = 10 - i
 
-for b in data:
-    print(hex(b))
+# %% 4.3.6 How to read bytes from a stream --> readinto()
+# import os
+#
+# data = bytearray(10)
+#
+# try:
+#     binary_file = open("file.bin", "rb")
+#     binary_file.readinto(data)
+#     binary_file.close()
+#
+#     for b in data:
+#         print(hex(b), end=" ")
+# except IOError as e:
+#     print("I/O error occurred:", os.strerror(e.errno))
 
+
+# %% # %% 4.3.6 How to read bytes from a stream --> read()
+# import os
+#
+# try:
+#     binary_file = open("file.bin", "rb")
+#     data = bytearray(binary_file.read())
+#     binary_file.close()
+#
+#     for b in data:
+#         print(hex(b), end=" ")
+#
+# except IOError as e:
+#     print("I/O error occurred:", os.strerror(e.errno))
+
+
+# %%
+# import os
+#
+# try:
+#     binary_file = open("file.bin", "rb")
+#     data = bytearray(binary_file.read(5))
+#     binary_file.close()
+#
+#     for b in data:
+#         print(hex(b), end=" ")
+#
+# except IOError as e:
+#     print("I/O error occurred:", os.strerror(e.errno))
+
+
+# %% 4.3.7 Copying files - a simple and functional tool
+# import os
+#
+#
+# srcname = input("Enter the source file name: ")
+# try:
+#     src = open(srcname, "rb")
+# except IOError as e:
+#     print("Cannot open the source file: ", os.strerror(e.errno))
+#     exit(e.errno)
+#
+# dstname = input("Enter yhe destination file name: ")
+# try:
+#     dst = open(dstname, "wb")
+# except IOError as e:
+#     print("Cannot create the destination file: ", os.strerror(e.errno))
+#     src.close()
+#     exit(e.errno)
+#
+# buffer = bytearray(65536)
+# total = 0
+# try:
+#     readin = src.readinto(buffer)
+#     while readin > 0:
+#         written = dst.write(buffer[:readin])
+#         total += written
+#         readin = src.readinto(buffer)
+# except IOError as e:
+#     print("Cannot create the destination file: ", os.strerror(e.errno))
+#     exit(e.errno)
+#
+# print(total, "byte(s) successfully written")
+# src.close()
+# dst.close()
+
+
+# %% 4.3.8 LAB -> Character frequency histogram - with sort by keys
+import os
+
+
+# def prompt():
+#     source_name = input("Enter file name to be analysed: ")
+#     try:
+#         file = open(source_name, "rt")
+#         return file
+#     except IOError as e:
+#         print("Cannot open source file.", os.strerror(e.errno))
+#         exit(e.errno)
+#
+#
+# def print_histogram(histogram):
+#     # sorted_dict = dict(sorted(histogram.items()))
+#     for key, value in histogram.items():
+#         if value != 0:
+#             print(key, "->", value)
+#
+#
+# histogram = {chr(ch): 0 for ch in range(ord("a"), ord("z") + 1)}
+# # histogram = {str(ch): 0 for ch in range(10)}
+# file = prompt()
+#
+#
+# for line in file:
+#     for char in line:
+#         if char.isdigit():
+#             histogram[char.lower()] += 1
+#         else:
+#             continue
+# file.close()
+# print_histogram(histogram)
+
+
+# %% 4.3.8 LAB -> Character frequency histogram - with sort by keys
+import os
+
+
+def prompt():
+    global source_name
+    source_name = input("Enter file name to be analysed: ")
+    try:
+        file = open(source_name, "rt")
+        return file
+    except IOError as e:
+        print("Cannot open source file.", os.strerror(e.errno))
+        exit(e.errno)
+
+
+def print_histogram(histogram):
+    histogram_s = dict(sorted(histogram.items(), key=lambda item: item[1], reverse=True))
+    for key, value in histogram_s.items():
+        if value != 0:
+            print(key, "->", value)
+
+
+def write_results(histogram, source_name):
+    histogram_s = dict(sorted(histogram.items(), key=lambda item: item[1], reverse=True))
+    try:
+        new_file = open(f"{source_name}.hist", "wt")
+        for key, value in histogram_s.items():
+            line = f"{key} -> {value}\n"
+            new_file.write(line)
+        new_file.close()
+    except IOError as e:
+        print("Cannot open source file.", os.strerror(e.errno))
+        exit(e.errno)
+
+
+histogram = {chr(ch): 0 for ch in range(ord("a"), ord("z") + 1)}
+# histogram = {str(ch): 0 for ch in range(10)}
+file = prompt()
+
+
+for line in file:
+    for char in line:
+        if char.isalpha():
+            histogram[char.lower()] += 1
+        else:
+            continue
+
+print_histogram(histogram)
+write_results(histogram, source_name)
+file.close()
