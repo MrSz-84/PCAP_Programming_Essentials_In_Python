@@ -532,52 +532,125 @@ import os
 
 
 # %% 4.3.8 LAB -> Character frequency histogram - with sort by keys
+# import os
+#
+#
+# def prompt():
+#     global source_name
+#     source_name = input("Enter file name to be analysed: ")
+#     try:
+#         file = open(source_name, "rt")
+#         return file
+#     except IOError as e:
+#         print("Cannot open source file.", os.strerror(e.errno))
+#         exit(e.errno)
+#
+#
+# def print_histogram(histogram):
+#     histogram_s = dict(sorted(histogram.items(), key=lambda item: item[1], reverse=True))
+#     for key, value in histogram_s.items():
+#         if value != 0:
+#             print(key, "->", value)
+#
+#
+# def write_results(histogram, source_name):
+#     histogram_s = dict(sorted(histogram.items(), key=lambda item: item[1], reverse=True))
+#     try:
+#         new_file = open(f"{source_name}.hist", "wt")
+#         for key, value in histogram_s.items():
+#             line = f"{key} -> {value}\n"
+#             new_file.write(line)
+#         new_file.close()
+#     except IOError as e:
+#         print("Cannot open source file.", os.strerror(e.errno))
+#         exit(e.errno)
+#
+#
+# histogram = {chr(ch): 0 for ch in range(ord("a"), ord("z") + 1)}
+# # histogram = {str(ch): 0 for ch in range(10)}
+# file = prompt()
+#
+#
+# for line in file:
+#     for char in line:
+#         if char.isalpha():
+#             histogram[char.lower()] += 1
+#         else:
+#             continue
+#
+# print_histogram(histogram)
+# write_results(histogram, source_name)
+# file.close()
+
+# %% 4.3.10 LAB Evaluating students' results
 import os
 
 
-def prompt():
-    global source_name
-    source_name = input("Enter file name to be analysed: ")
-    try:
-        file = open(source_name, "rt")
-        return file
-    except IOError as e:
-        print("Cannot open source file.", os.strerror(e.errno))
-        exit(e.errno)
+class StudentsDataException(Exception):
+    pass
 
 
-def print_histogram(histogram):
-    histogram_s = dict(sorted(histogram.items(), key=lambda item: item[1], reverse=True))
-    for key, value in histogram_s.items():
-        if value != 0:
-            print(key, "->", value)
+class BadLine(StudentsDataException):
+    def __init__(self, line_no, source_name):
+        super().__init__()
+        self.line_no = line_no
+        self.source_name = source_name
 
 
-def write_results(histogram, source_name):
-    histogram_s = dict(sorted(histogram.items(), key=lambda item: item[1], reverse=True))
-    try:
-        new_file = open(f"{source_name}.hist", "wt")
-        for key, value in histogram_s.items():
-            line = f"{key} -> {value}\n"
-            new_file.write(line)
-        new_file.close()
-    except IOError as e:
-        print("Cannot open source file.", os.strerror(e.errno))
-        exit(e.errno)
+class FileEmpty(StudentsDataException):
+    def __init__(self):
+        super().__init__()
 
 
-histogram = {chr(ch): 0 for ch in range(ord("a"), ord("z") + 1)}
-# histogram = {str(ch): 0 for ch in range(10)}
-file = prompt()
+def add_to_dict(dict_, data, student="", score=""):
+    for char in data:
+        if not char.isdigit() and char != ".":
+            student += char
+        elif char.isdigit() or char == ".":
+            score += char
+    if student.strip() in dict_:
+        students_dict[student.strip()] += (score,)
+    else:
+        students_dict[student.strip()] = (score,)
 
 
-for line in file:
-    for char in line:
-        if char.isalpha():
-            histogram[char.lower()] += 1
-        else:
-            continue
+def print_results(to_sort):
+    to_print = dict(sorted(to_sort.items(), key=lambda item: item[1]))
+    for key, item in to_print.items():
+        total = 0
+        for number in item:
+            total += float(number)
+        print(key, total)
 
-print_histogram(histogram)
-write_results(histogram, source_name)
-file.close()
+
+source_name = input("Enter file name to process: ")
+try:
+    file = open(source_name, "rt")
+    students_dict = {}
+
+    a = file.readlines()
+    if len(a) == 0:
+        raise FileEmpty()
+
+    line_no = 0
+
+    file = open(source_name, "rt")
+    for line in file:
+        line_no += 1
+        if len(line.split()) != 3:
+            raise BadLine(line_no, source_name)
+        test = float(line.split()[-1])
+        add_to_dict(students_dict, line)
+    file.close()
+    print_results(students_dict)
+
+except IOError as e:
+    print("Error occurred", os.strerror(e.errno))
+    exit(e.errno)
+except BadLine as e:
+    print(f"Bad data at line number {e.line_no} at sourcefile: {e.source_name}")
+except FileEmpty:
+    print("File is empty, nothing to process.")
+
+
+# %%
