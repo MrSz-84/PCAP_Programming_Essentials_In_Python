@@ -583,74 +583,84 @@ import os
 # file.close()
 
 # %% 4.3.10 LAB Evaluating students' results
-import os
-
-
-class StudentsDataException(Exception):
-    pass
-
-
-class BadLine(StudentsDataException):
-    def __init__(self, line_no, source_name):
-        super().__init__()
-        self.line_no = line_no
-        self.source_name = source_name
-
-
-class FileEmpty(StudentsDataException):
-    def __init__(self):
-        super().__init__()
-
-
-def add_to_dict(dict_, data, student="", score=""):
-    for char in data:
-        if not char.isdigit() and char != ".":
-            student += char
-        elif char.isdigit() or char == ".":
-            score += char
-    if student.strip() in dict_:
-        students_dict[student.strip()] += (score,)
-    else:
-        students_dict[student.strip()] = (score,)
-
-
-def print_results(to_sort):
-    to_print = dict(sorted(to_sort.items(), key=lambda item: item[1]))
-    for key, item in to_print.items():
-        total = 0
-        for number in item:
-            total += float(number)
-        print(key, total)
-
-
-source_name = input("Enter file name to process: ")
-try:
-    file = open(source_name, "rt")
-    students_dict = {}
-
-    a = file.readlines()
-    if len(a) == 0:
-        raise FileEmpty()
-
-    line_no = 0
-
-    file = open(source_name, "rt")
-    for line in file:
-        line_no += 1
-        if len(line.split()) != 3:
-            raise BadLine(line_no, source_name)
-        test = float(line.split()[-1])
-        add_to_dict(students_dict, line)
-    file.close()
-    print_results(students_dict)
-
-except IOError as e:
-    print("Error occurred", os.strerror(e.errno))
-    exit(e.errno)
-except BadLine as e:
-    print(f"Bad data at line number {e.line_no} at sourcefile: {e.source_name}")
-except FileEmpty:
-    print("File is empty, nothing to process.")
+# import os
+#
+#
+# class StudentsDataException(Exception):
+#     pass
+#
+#
+# class BadLine(StudentsDataException):
+#     def __init__(self, line_no, source_name):
+#         super().__init__()
+#         self.line_no = line_no
+#         self.source_name = source_name
+#
+#
+# class FileEmpty(StudentsDataException):
+#     def __init__(self):
+#         super().__init__()
+#
+#
+# def add_to_dict(dict_, data, student="", score=""):
+#     for char in data:
+#         if not char.isdigit() and char != ".":
+#             student += char
+#         elif char.isdigit() or char == ".":
+#             score += char
+#     if student.strip() in dict_:
+#         students_dict[student.strip()] += (score,)
+#     else:
+#         students_dict[student.strip()] = (score,)
+#
+#
+# def print_results(to_sort):
+#     to_print = dict(sorted(to_sort.items(), key=lambda item: item[1]))
+#     for key, item in to_print.items():
+#         total = 0
+#         for number in item:
+#             total += float(number)
+#         print(key, total)
+#
+#
+# source_name = input("Enter file name to process: ")
+# try:
+#     file = open(source_name, "rt")
+#     students_dict = {}
+#
+#     a = file.readlines()
+#     if len(a) == 0:
+#         raise FileEmpty()
+#
+#     line_no = 0
+#
+#     file = open(source_name, "rt")
+#     for line in file:
+#         line_no += 1
+#         if len(line.split()) != 3:
+#             raise BadLine(line_no, source_name)
+#         test = float(line.split()[-1])
+#         add_to_dict(students_dict, line)
+#     file.close()
+#     print_results(students_dict)
+#
+# except IOError as e:
+#     print("Error occurred", os.strerror(e.errno))
+#     exit(e.errno)
+# except BadLine as e:
+#     print(f"Bad data at line number {e.line_no} at sourcefile: {e.source_name}")
+# except FileEmpty:
+#     print("File is empty, nothing to process.")
 
 
 # %%
+# try:
+#     stream = open("image.png", "rb")
+#     stream.readinto(image)
+#     stream.close()
+# except IOError:
+#     print("failed")
+# else:
+#     print("success") \\or\\ image = bytearray(stream.read())
+
+
