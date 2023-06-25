@@ -78,6 +78,23 @@ class Seeker:
             os.chdir("../")
 
 
+    def set_dir(self, directory="", to_find=""):
+        if self.path[2:] in os.listdir():
+            os.chdir(self.path)
+        elif self.path[2:] in os.getcwd():
+            while not os.getcwd().endswith(self.path[2:]):
+                os.chdir("../")
+        else:
+            to_find = self.path[2:]
+            directory = os.listdir()
+            for folder in directory:
+                if not os.path.isdir(folder):
+                    continue
+                os.chdir(folder)
+                self.set_dir(folder, to_find)
+                os.chdir("../")
+
+
 def create_dir_structure():
     os.makedirs("./tree/c/other_courses/cpp")
     os.mkdir("./tree/c/other_courses/python")
@@ -87,10 +104,12 @@ def create_dir_structure():
     os.makedirs("python/other_courses/c")
     os.mkdir("./python/other_courses/cpp")
     os.chdir("../")
+    os.chdir("../")
 
 
 create_dir_structure()
 obj = Seeker(path="./tree", dir_="python")
+obj.set_dir()
 obj.find()
 
 
