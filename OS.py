@@ -62,7 +62,7 @@ class Seeker:
         self.dir_ = dir_
         self.to_find = self.dir_
 
-    def __str__(self, dirpath):
+    def print_results(self, dirpath):
         print(f"...{dirpath[dirpath.find(self.path[2:])-1:]}")
 
     def find(self, directory="", to_find=""):
@@ -71,12 +71,11 @@ class Seeker:
         to_find = self.to_find
         directory = os.listdir()
         if os.getcwd().endswith(to_find):
-            self.__str__(os.getcwd())
+            self.print_results(os.getcwd())
         for folder in directory:
             os.chdir(folder)
             self.find(folder, to_find)
             os.chdir("../")
-
 
     def set_dir(self, directory="", to_find=""):
         if self.path[2:] in os.listdir():
