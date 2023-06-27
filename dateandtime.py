@@ -330,20 +330,31 @@ Each of them is optional and defaults to 0.
 # print("Microseconds:", delta2.microseconds)
 
 # %% timedelta operations
+# import datetime
+#
+# delta = datetime.timedelta(weeks=2, days=2, hours=2)
+# print(delta)
+#
+# delta2 = delta * 2
+# print(delta2)
+#
+# d = datetime.date(2019, 10, 4) + delta2
+# print(d)
+#
+# dt = datetime.datetime(2019, 10, 4, 14, 53) + delta2
+# print(dt)
+
+
+# %% 4.5.20 LAB The datetime and time modules
 import datetime
 
-delta = datetime.timedelta(weeks=2, days=2, hours=2)
-print(delta)
 
-delta2 = delta * 2
-print(delta2)
+obj = datetime.datetime(2020, 11, 4, 14, 53, 0)
 
-d = datetime.date(2019, 10, 4) + delta2
-print(d)
-
-dt = datetime.datetime(2019, 10, 4, 14, 53) + delta2
-print(dt)
-
-
-
-
+print(obj.strftime("%Y/%m/%d %H:%M:%S"))
+print(obj.strftime("%y/%B/%d %H:%M:%S %p"))
+print(obj.strftime("%a, %Y/%b/%d"))
+print(obj.strftime("%A, %Y/%B/%d"))
+print(obj.strftime("Weekday: %w"))
+print(obj.strftime("Day of the year: %j"))
+print(obj.strftime("Week number of the year: %W"))
